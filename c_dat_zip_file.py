@@ -7,9 +7,9 @@ from c_big_zip_file import big_zip_file
 class dat_zip_file(big_zip_file):
 #Read:Customer (CustomerId, ServiceProviderId, billCycleId, billCycleIdAfterSwitch, billCycleSwitch, category, prefetchFilter, BillCycleHistory{BillCycleId, InvalidFrom}, IMSI, OperationalType, ParentCustomerId, vValidFrom, vInvalidFrom, BillingType, Classifications, HomeTimeZoneId, PackageAdminRole, TaxCategory, TaxJurisdiction, bCategory, bSeriesId, bValidFrom, bInvalidFrom, EventTimeOfLastRatedEvent, IsChronologyViolated, LastReratingID, ReratingHistory{ReratingId, ReratingTime});
 
-  REGEX_DAT_CUSTOMER_ID    = '^Read:Customer\s+\(CustomerId'
-  REGEX_PARENT_CUSTOMER_ID = 'ParentCustomerId'
-  REGEX_WHITE_SPACE        = '^\s*$'
+  REGEX_DAT_CUSTOMER_ID    = r'^Read:Customer\s+\(CustomerId'
+  REGEX_PARENT_CUSTOMER_ID = r'ParentCustomerId'
+  REGEX_WHITE_SPACE        = r'^\s*$'
   dat_file_counter         = 0                                  # DAT file have been opened
   write_customer_detail    = False
   display_log_summary      = False
@@ -95,7 +95,7 @@ class dat_zip_file(big_zip_file):
         continue
 
       if first_line_customer:
-        qline = re.search('CustomerId="(\w+)"', dat_line)
+        qline = re.search(r'CustomerId="(\w+)"', dat_line)
         if qline: # if pattern match, then this is first Line Dump of NEW cust
           first_line_customer = False
           dat_customer_id     = qline.group(1)
