@@ -50,7 +50,7 @@ class collect_subs_from_dat_zip_file(dat_zip_file, progress_bar):
         self.dat_file_counter += 1
 
         for line in dat_content.decode('utf-8').split('\n'):
-          rRPP = re.search('^Read:RPP \(CustomerId="(\w+)", s_PackageId="(\w+)"', line)
+          rRPP = re.search(r'^Read:RPP \(CustomerId="(\w+)", s_PackageId="(\w+)"', line)
           if rRPP:
   #         self.RPP_CustomerId = rRPP.group(1)
             s_PackageId    = rRPP.group(2)
@@ -61,7 +61,7 @@ class collect_subs_from_dat_zip_file(dat_zip_file, progress_bar):
 
             continue
 
-          rROP = re.search('^Read:ROP \(CustomerId="(\w+)"', line)
+          rROP = re.search(r'^Read:ROP \(CustomerId="(\w+)"', line)
           if rROP:
             self.ROP_CustomerId = rROP.group(1)
             if self.ROP_CustomerId == last_ROP_CustomerId:
@@ -73,7 +73,7 @@ class collect_subs_from_dat_zip_file(dat_zip_file, progress_bar):
                 self.Multiple_ROP_dict[self.CustomerId]['filename']   = dat_zip_filename
                 self.Multiple_ROP_dict[self.CustomerId]['counter']    = 2
 
-            rROP1 = re.search('^Read:ROP \(CustomerId="\w+", s_OfferId="(\w+)"', line)
+            rROP1 = re.search(r'^Read:ROP \(CustomerId="\w+", s_OfferId="(\w+)"', line)
             if rROP1:
               s_OfferId                         = rROP1.group(1)
               self.ROP_s_OfferId_Counter[s_OfferId] += 1
@@ -85,7 +85,7 @@ class collect_subs_from_dat_zip_file(dat_zip_file, progress_bar):
 
             continue
 
-          rCustomer = re.search('^Read:Customer \(CustomerId="(\w+)"', line)
+          rCustomer = re.search(r'^Read:Customer \(CustomerId="(\w+)"', line)
           if rCustomer:
             if self.log_status:
               if self.report_line:
@@ -103,7 +103,7 @@ class collect_subs_from_dat_zip_file(dat_zip_file, progress_bar):
 
             continue
 
-          rServiceAccessKey = re.search('^Read:ServiceAccessKey \(Key="(\w+)", OwningCustomerId="(\w+)"', line)
+          rServiceAccessKey = re.search(r'^Read:ServiceAccessKey \(Key="(\w+)", OwningCustomerId="(\w+)"', line)
           if rServiceAccessKey:
             OwningCustomerId = rServiceAccessKey.group(2)
             if self.log_status:
