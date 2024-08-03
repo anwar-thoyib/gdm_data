@@ -7,7 +7,7 @@ from c_progress_bar import progress_bar
 
 #############################################################################
 class find_cust_from_zip_file(dat_zip_file, progress_bar):
-  REGEX_LOG_CUSTOMER_ID = "{CustomerId=(\w+)}\s+(\w+)"
+  REGEX_LOG_CUSTOMER_ID = r'{CustomerId=(\w+)}\s+(\w+)'
   log_accomplished      = False                                 # TRUE if already cust found in LOG file
   log_file_counter      = 0                                     # LOG file have been opened
 
@@ -71,8 +71,8 @@ class find_cust_from_zip_file(dat_zip_file, progress_bar):
 
 # RED LOOPING START: to get filename of LOG file from <ZipFileList[]> ------->
     for zip_filename in self.main_zip_filename_list:
-      uname = zip_filename.decode('gbk')
-      if uname.endswith('.log.zip'):
+#      uname = zip_filename.decode('gbk')
+      if zip_filename.endswith('.log.zip'):
         if self.display_log_bar_status:
           self.print_progress_bar_log()
 
@@ -99,7 +99,7 @@ class find_cust_from_zip_file(dat_zip_file, progress_bar):
     customer_id_list   = []
     finp = open(filename_inp)
     for line in finp:
-      rline = re.search('^(\w+)$', line)
+      rline = re.search(r'^(\w+)$', line)
       if rline:
         customer_id_list.append(rline.group(1))
 
